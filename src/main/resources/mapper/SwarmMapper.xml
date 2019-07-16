@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.docker_paas_2.dao.SwarmDao">
+
+    <!--根据服务名读出一条数据-->
+    <select id="getByServiceName" resultType="com.example.docker_paas_2.entry.Swarm">
+        select * from swarm_service where service_name = #{service_name}
+    </select>
+
+    <!--写入一条服务记录-->
+    <insert id="insertService" >
+        insert into swarm_service values (#{user_name}, #{image_name}, #{service_name},
+        #{copy_num}, #{cpu}, #{ram})
+    </insert>
+
+    <!--根据用户名得到自己的服务记录-->
+    <select id="getByUserName" resultType="com.example.docker_paas_2.entry.Swarm">
+        select * from swarm_service where user_name = #{user_name}
+    </select>
+
+    <!--管理员从数据库读出所有服务数据-->
+    <select id="getAllService" resultType="com.example.docker_paas_2.entry.Swarm">
+        select * from swarm_service
+    </select>
+
+    <!--根据服务名删除一条记录-->
+    <delete id="deleteByServiceName" >
+        delete from swarm_service where service_name = #{service_name}
+    </delete>
+
+    <!--更新副本数-->
+    <update id="updateServiceCopyNum" >
+        update swarm_service set copy_num = #{copy_num}  where service_name = #{service_name}
+    </update>
+
+    <!--更新cpu，内存配置-->
+    <update id="updateServiceResource" >
+        update swarm_service set cpu = #{cpu},ram = #{ram}  where service_name = #{service_name}
+    </update>
+
+    <!--根据镜像名从数据库读出服务-->
+    <select id="getByImageName" resultType="com.example.docker_paas_2.entry.Swarm">
+        select * from swarm_service where image_name = #{image_name}
+    </select>
+
+</mapper>

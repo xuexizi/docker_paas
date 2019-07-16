@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.docker_paas_2.dao.JournalDao">
+
+    <!--插入一条日志-->
+    <insert id="insertJournal" >
+        insert into journal values (#{time}, #{user_name}, #{info})
+    </insert>
+
+    <!--根据用户名得到自己的服务记录-->
+    <select id="getJournalByUsername" resultType="com.example.docker_paas_2.entry.Journal">
+        select * from journal where user_name = #{user_name}
+    </select>
+
+    <!--管理员从数据库读出所有服务数据-->
+    <select id="getAllJournal" resultType="com.example.docker_paas_2.entry.Journal">
+        select * from journal
+    </select>
+
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.docker_paas_2.dao.UserDao">
+
+    <!--根据用户名得到一条用户记录-->
+    <select id="getByUserName" resultType="com.example.docker_paas_2.entry.User">
+        select * from user where user_name = #{user_name};
+    </select>
+
+    <!--根据邮箱得到一条用户记录-->
+    <select id="getByUserEmail" resultType="com.example.docker_paas_2.entry.User">
+        select * from user where email = #{email};
+    </select>
+
+    <!--注册插入用户-->
+    <insert id="insertUser" >
+        insert into user(user_name, password, email) values (#{user_name}, #{password}, #{email});
+    </insert>
+
+    <!--查看所有用户-->
+    <select id="getUserByPowerAll" resultType="com.example.docker_paas_2.entry.User">
+        select * from user where user_name != 'root';
+    </select>
+
+    <!--查看用户-->
+    <select id="getUserByPower" resultType="com.example.docker_paas_2.entry.User">
+        select * from user where power = #{power};
+    </select>
+
+    <!--删除用户-->
+    <delete id="deleteByUserName" >
+        delete from user where user_name = #{user_name};
+    </delete>
+
+    <!--修改用户权限-->
+    <update id="updatePower" >
+        update user set power = #{power} where user_name = #{user_name}
+    </update>
+
+    <!--修改验证码-->
+    <update id="updateVerifyCode" >
+        update user set verify_code = #{verify_code} where user_name = #{user_name}
+    </update>
+
+    <!--重置密码-->
+    <update id="updatePassword" >
+        update user set password = #{new_password} where user_name = #{user_name}
+    </update>
+
+</mapper>
